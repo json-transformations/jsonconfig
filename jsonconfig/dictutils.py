@@ -55,5 +55,13 @@ class KeyringAttrDict(dict):
     __delitem__ = __delattr__
 
 
-def nested_dict():
-    return collections.defaultdict(nested_dict)
+def identity(d):
+    return d
+
+
+def nested():
+    return collections.defaultdict(nested, {})
+
+
+def nested_dict(d):
+    return collections.defaultdict(nested, d)

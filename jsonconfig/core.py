@@ -1,5 +1,3 @@
-import collections
-import copy
 import functools
 import json
 import os
@@ -8,7 +6,10 @@ import box
 import click
 import keyring
 
-from .attrdict import EnvironAttrDict, KeyringAttrDict, nested_dict
+from .dictutils import (
+    identity, nested_dict,
+    EnvironAttrDict, KeyringAttrDict
+)
 from .errors import (
     FileError, FileEncodeError,
     JsonEncodeError, JsonDecodeError,
@@ -18,9 +19,10 @@ from .errors import (
 to_json, from_json = box._to_json, box._from_json
 
 # data types
+PLAIN = identity
 BOXED = box.Box
 FROZEN = functools.partial(BOXED, frozen_box=True)
-NESTED = lambda d: collections.defaultdict(nested_dict, d)
+NESTED = nested_dict
 
 DEFAULT_FILENAME = 'config.json'
 
