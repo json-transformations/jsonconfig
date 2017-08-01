@@ -1,154 +1,164 @@
-.. topic:: JSONConfig parameters
+Welcome to JSON Config
+======================
 
-.. topic:: Configuration data:
+*Configuration doesn't get any easier than this ...*
 
-  Packaged data types:
+What's it Used For?
+-------------------
+ * Managing settings, configuration information, application data, etc.
+ * Managing secrets, tokens, keys, passwords, etc.
+ * Managing environment settings.
 
-   None
-     The data can be any JSON serializable object.
+Basic Example
+-------------
 
-   BOXED
-      A Python dictionary with recursive dot notation access.
+.. code::
 
-      Box is simply a subclass of dict which overrides some base
-      functionality to make sure everything stored in the dict can be
-      accessed as an attribute or key value.
+    with JsonConfig() as cfg:
+        cfg.data = 'Any JSON serializable object ...'
+        cfg.pwd.a_secret = 'Encrypted data ...'
+        cfg.env.a_variable = 'Environment variables.'
 
-      It slugify's key names to allow attribute access to any key:
+In the context manager above:
+    * The ``data`` is stored in the user's local application directory.
+    * The ``pwd`` data is encrypted and stored in a keyring vault.
+    * The ``env`` data is stored in environment variables.
 
-      1. Converts to a string using UTF-8 encoding with errors ignored.
-      2. Replaces spaces with underscores.
-      3. Removes anything other than ascii letters, numbers and underscores.
-      4. If the first character is a digit then prepend with 'x'.
-      5. If string is a built-in that can't be used then prepend with 'x'.
-      6. Removes duplicate underscores.
+Installation
+------------
 
-      Note: It does not check for duplicate keys when slugifying.
-      For more information see https://github.com/cdgriffith/Box.
+.. code::
 
-  FROZEN
-     Same as BOXED except that the box will be immutable.  It will also be
-     hashable if all of the objects in it are also non-mutable. For more
-     information see https://github.com/cdgriffith/Box.
+    pip install jsonconfig
 
-     Frozen also bypasses writing data back to the configuration file when
-     exiting the context manager.
+Simply Sane
+-----------
+*No bad juju* ...
 
-  NESTED
-     A dictionary that when assigning key values automatically creates
-     missing keys, even when they are nested.
+Configuration File Locations
+----------------------------
 
-     If a key doesn't exist it will return None, even if it's nested and
-     multiple keys are missing.
+Click_ *is the package used to determine the default application directory*.
 
-     For more information see https://stackoverflow.com/questions/16724788.
+The default behavior is to return whatever is most appropriate for the
+operating system. To give you an idea, an app called ``Foo Bar`` would
+likely return the following:
 
-.. topic:: Application Directory Settings::
+.. code-block:: text
 
-   For additional information see 
-   http://click.pocoo.org/5/utils/#finding-application-folders.
+    Mac OS X:
+    ~/Library/Application Support/Foo Bar
 
-   name
-      The application name. This should be properly capitalized and can
-      contain whitespace.
-    
-   roaming
-      Controls if the folder should be roaming or not on Windows. Has no
-      affect otherwise.
-    
-   force_posix
-      If this is set to `True` then on any POSIX system the folder will be
-      stored in the home folder with a leading dot instead of the XDG config
-      home or darwin's application support folder.
+    Mac OS X (POSIX):
+    ~/.foo-bar
 
-   path
-      Manually overides the application directory setting.
+    Unix:
+    ~/.config/foo-bar
 
-   filename
-      The name of the configuration file.
+    Unix (POSIX):
+    ~/.foo-bar
 
-.. topic:: Keyring Settings::
-  
-   service
-      An optional name of the location within the keyring to store the
-      key/value. By default it's set to the `name`.
+    Win XP (roaming):
+    C:\Documents and Settings\<user>\Local Settings\Application Data\Foo Bar
 
-    keyring
-      An optional keyring backend name or KeyringBackend object. The default
-      is to use the current backend set in the Keyring configuration file
-      if one exists or select the most appropriate keyring backend for your
-      platform. Valid backend names are os_x, kwallet, secretservice and
-      windows.
+    Win XP (not roaming):
+    C:\Documents and Settings\<user>\Application Data\Foo Bar
 
+    Win 7 (roaming):
+    C:\Users\<user>\AppData\Roaming\Foo Bar
 
-      backend.KeyringBackend
+    Win 7 (not roaming):
+    C:\Users\<user>\AppData\Local\Foo Bar
 
-      Mac OS X Keychain
-      Freedesktop Secret Service (requires secretstorage)
-      KWallet (requires dbus)
-      Windows Credential Locker
-      Other keyring implementations are provided in the keyrings.alt package.
+Of course, you or the user are free to override this behavior and set the
+location to wherever you want.
 
-appname=__name__, roaming=True, force_posix=False,
-                 path=None, filename='config.json', readonly=False,
-                 encoding='utf-8', errors=None, newline=None,
-                 keyring_service=None, keyring_backend=None
+Encryption Backends
+-------------------
 
-.. topic:: JSONConfig uses Box objects for configuration data:
+Keyring_ *is the package used to manage encryption*.
 
-  Python dictionaries with recursive dot notation access.
-
-  Box is simply a subclass of dict which overrides some base functionality
-  to make sure everything stored in the dict can be accessed as an attribute
-  or key value.
-
-
-.. topic:: JSONConfig uses click's get_app_dir function
-
-  Returns the config folder for the application.  The default behavior
-  is to return whatever is most appropriate for the operating system.
-
-  To give you an idea, for an app called ``"Foo Bar"``, something like
-  the following folders could be returned:
-
-  Mac OS X:
-    ``~/Library/Application Support/Foo Bar``
-  Mac OS X (POSIX):
-    ``~/.foo-bar``
-  Unix:
-    ``~/.config/foo-bar``
-  Unix (POSIX):
-    ``~/.foo-bar``
-  Win XP (roaming):
-    ``C:\Documents and Settings\<user>\Local Settings\Application Data\Foo Bar``
-  Win XP (not roaming):
-    ``C:\Documents and Settings\<user>\Application Data\Foo Bar``
-  Win 7 (roaming):
-    ``C:\Users\<user>\AppData\Roaming\Foo Bar``
-  Win 7 (not roaming):
-    ``C:\Users\<user>\AppData\Local\Foo Bar``
-
-.. topic:: JSONConfig uses Python's `os.enivron` method for environment variables
-
-  Allows attribute style notation.
-
-.. topic:: Keyring
-
-   It also adds attribute access for keys that could not normally be
-   attributes:
-
-
-   The Python keyring lib provides a easy way to access the system keyring service from python. It can be used in any application that needs safe password storage.
-
-The keyring library is licensed under both the MIT license and the PSF license.
-
-These recommended keyring backends are supported by the Python keyring lib:
+The default behavior is to select the most secure backend supported
+by the user's platform. To give you an idea, the following Keyring
+backends would likely be returned:
 
 Mac OS X:
-  Keychain
-Unix (with dbus installed)
-  Freedesktop Secret Service
-Unix (with secretstorage installed)
-  Windows Credential Locker
+    Keychain_
 
-Other keyring implementations are provided in the keyrings.alt package.
+Unix (with secretstorage installed):
+    Freedesktop `Secret Service`_
+
+Unix (with dbus installed):
+    kwallet_
+
+Windows:
+    `Windows Credential Manager`_
+
+Of course, you or the user are free to override the defaults. The user can
+also change their Keyring backend preferences system-wide from the
+command-line or via configuration files.  JSON Config will then use the
+user's preferred Keyring backend unless told otherwise.
+  
+Data Served in the Wrapping of Your Choice
+------------------------------------------
+
+Box_ *is the package used to handle data access*.
+
+PLAIN
+    No wrapping.  Organic, free-ranging data.  If it's JSON serializable
+    we'll work with it.
+
+BOXED
+    Wraps the data in a Box_; a Python dictionary that supports both recursive
+    dot notation access and standard dictionary key access.
+
+FROZEN
+    Puts the data in a ``Frozen Box``, same as BOXED except immutable; will
+    also be hashable if all objects in it are immutable.
+
+NESTED
+     Nests the data in a default dictionary that can automatically create
+     missing intermediary keys. It's also very forgiving when retrieving
+     data from the dictionary; for example, it won't throw an error if a key
+     doesn't exist.  Instead, it'll return None; even if the key's nested
+     and multiple keys are missing.
+
+Data Conversion
+---------------
+
+* ``BOXED``, ``FROZEN`` and ``NESTED`` are all subclasses of dicts or
+  defaultdicts.  You can convert back-and-forth between any of them at any
+  time.
+
+* You convert from ``BOXED``, ``FROZEN`` or ``NESTED`` to ``PLAIN`` at
+  anytime.
+
+* You can convert from PLAIN to ``BOXED``, ``FROZEN`` or ``NESTED`` only if
+  the data is a Mapping.
+
+* ``PLAIN`` is the only data type that supports non-Mappings.
+
+References
+----------
+
+.. target-notes::
+
+.. _JSON Config's official documentation: jsonconfig.readthedocs.org
+
+.. _Click: http://github.com/pallets/click
+
+.. _Keyring: https://github.com/jaraco/keyring
+
+.. _Box: http://github.com/cdgriffith/Box
+
+.. _Keychain: https://en.wikipedia.org/wiki/Keychain_%28software%29
+
+.. _Secret Service: http://standards.freedesktop.org/secret-service
+
+.. _kwallet: https://en.wikipedia.org/wiki/KWallet
+
+.. _dbus: https://pypi.python.org/pypi/dbus-python
+
+.. _Windows Credential Manager: http://windows.microsoft.com/en-us/windows7/what-is-credential-manager
+
+.. _3rd-party Keyring encryption backends: http://github.com/jaraco/keyrings.alt
