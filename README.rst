@@ -5,8 +5,11 @@ Welcome to JSON Config
 
 What's it Used For?
 -------------------
+ 
  * Managing settings, configuration information, application data, etc.
+ 
  * Managing secrets, tokens, keys, passwords, etc.
+ 
  * Managing environment settings.
 
 Basic Example
