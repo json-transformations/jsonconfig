@@ -22,7 +22,12 @@ Basic Example
         cfg.pwd.a_secret = 'Encrypted data ...'
         cfg.env.a_variable = 'Environment variables.'
 
-In the context manager above:
+Simply Sane
+-----------
+*No bad juju here* ...
+
+.. topic:: In the context manager above:
+
     * The ``data`` is stored in the user's local application directory.
     * The ``pwd`` data is encrypted and stored in a keyring vault.
     * The ``env`` data is stored in environment variables.
@@ -33,10 +38,6 @@ Installation
 .. code::
 
     pip install jsonconfig
-
-Simply Sane
------------
-*No bad juju* ...
 
 Configuration File Locations
 ----------------------------
@@ -102,29 +103,31 @@ also change their Keyring backend preferences system-wide from the
 command-line or via configuration files.  JSON Config will then use the
 user's preferred Keyring backend unless told otherwise.
   
-Data Served in the Wrapping of Your Choice
-------------------------------------------
+How Do You Want Your Data Served?
+---------------------------------
 
-Box_ *is the package used to handle data access*.
+Box_ *is the package used to handle the data access wrappers*.
 
 PLAIN
     No wrapping.  Organic, free-ranging data.  If it's JSON serializable
-    we'll work with it.
+    we'll work with it.  This is the default.
 
 BOXED
-    Wraps the data in a Box_; a Python dictionary that supports both recursive
-    dot notation access and standard dictionary key access.
+    Delivers your data in a Box_; a Python dictionary that supports both
+    recursive dot notation access and standard dictionary key access. If
+    you have a fear of being boxed-in, don't panic!  You can get in and out
+    of the box at anytime, see the data conversion section below.
 
 FROZEN
-    Puts the data in a ``Frozen Box``, same as BOXED except immutable; will
+    Ices the data in a ``Frozen Box``, same as BOXED except immutable; will
     also be hashable if all objects in it are immutable.
 
 NESTED
-     Nests the data in a default dictionary that can automatically create
-     missing intermediary keys. It's also very forgiving when retrieving
-     data from the dictionary; for example, it won't throw an error if a key
-     doesn't exist.  Instead, it'll return None; even if the key's nested
-     and multiple keys are missing.
+    Nests the data in a default dictionary that can automatically create
+    missing intermediary keys. It's also very forgiving when retrieving
+    data from the dictionary; for example, it won't throw an error if a key
+    doesn't exist.  Instead, it'll return None; even if the key's nested
+    and multiple keys are missing.
 
 Data Conversion
 ---------------
@@ -136,10 +139,12 @@ Data Conversion
 * You convert from ``BOXED``, ``FROZEN`` or ``NESTED`` to ``PLAIN`` at
   anytime.
 
-* You can convert from PLAIN to ``BOXED``, ``FROZEN`` or ``NESTED`` only if
-  the data is a Mapping.
+* You can convert from ``PLAIN`` to ``BOXED``, ``FROZEN`` or ``NESTED``
+  if the data is a Mapping.
 
-* ``PLAIN`` is the only data type that supports non-Mappings.
+* All of the objects listed above are Mappings, if your data object is not
+  a Mapping then use ``PLAIN`` to free yourself of all of the trappings.
+  With ``PLAIN`` it's just you and buddy Python; we get out of the way.
 
 References
 ----------
