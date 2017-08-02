@@ -115,8 +115,8 @@ PLAIN
 BOXED
     Delivers your data in a Box_; a Python dictionary that supports both
     recursive dot notation access and standard dictionary key access. If
-    you have a fear of being boxed-in, don't panic!  You can get in and out
-    of the box at anytime, see the data conversion section below.
+    you have a fear of being *boxed-in*, don't panic!  You can get in and
+    out of the box at anytime, see the data conversion section below.
 
 FROZEN
     Ices the data in a ``Frozen Box``, same as BOXED except immutable; will
@@ -144,7 +144,7 @@ Data Conversion
 
 * All of the objects listed above are Mappings, if your data object is not
   a Mapping then use ``PLAIN`` to free yourself of all of the trappings.
-  With ``PLAIN`` it's just you and buddy Python; we get out of the way.
+  With ``PLAIN`` it's just you and your buddy Python; we get out of the way.
 
 References
 ----------
