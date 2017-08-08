@@ -7,10 +7,7 @@ import box
 import click
 import keyring
 
-from .dictutils import (
-    identity, nested_dict,
-    EnvironAttrDict, KeyringAttrDict
-)
+from .dictutils import (EnvironAttrDict, KeyringAttrDict)
 from .errors import (
     FileError, FileEncodeError,
     JsonEncodeError, JsonDecodeError,
@@ -18,10 +15,10 @@ from .errors import (
 )
 
 # data types
-PLAIN = identity
+PLAIN = lambda x: x
 BOXED = box.Box
 FROZEN = partial(BOXED, frozen_box=True)
-NESTED = nested_dict
+NESTED = partial(BOXED, default_box=True)
 
 DEFAULT_FILENAME = 'config.json'
 
