@@ -17,7 +17,7 @@ Basic Example
 
 .. code::
 
-    with JsonConfig() as cfg:
+    with Config('myapp') as cfg:
         cfg.data = 'Any JSON serializable object ...'
         cfg.pwd.a_secret = 'Encrypted data ...'
         cfg.env.a_variable = 'Environment variables.'
@@ -68,10 +68,10 @@ likely return the following:
     Win XP (not roaming):
     C:\Documents and Settings\<user>\Application Data\Foo Bar
 
-    Win 7 (roaming):
+    Win 7+ (roaming):
     C:\Users\<user>\AppData\Roaming\Foo Bar
 
-    Win 7 (not roaming):
+    Win 7+ (not roaming):
     C:\Users\<user>\AppData\Local\Foo Bar
 
 Of course, you or the user are free to override this behavior and set the
@@ -90,13 +90,13 @@ Mac OS X:
     Keychain_
 
 Unix (with secretstorage installed):
-    Freedesktop `Secret Service`_
+    `Secret Service`_
 
 Unix (with dbus installed):
     kwallet_
 
 Windows:
-    `Windows Credential Manager`_
+    `Windows Credential Locker`_
 
 Of course, you or the user are free to override the defaults. The user can
 also change their Keyring backend preferences system-wide from the
@@ -167,6 +167,6 @@ References
 
 .. _dbus: https://pypi.python.org/pypi/dbus-python
 
-.. _Windows Credential Manager: http://windows.microsoft.com/en-us/windows7/what-is-credential-manager
+.. _Windows Credential Manager: https://docs.microsoft.com/en-us/uwp/api/Windows.Security.Credentials
 
 .. _3rd-party Keyring encryption backends: http://github.com/jaraco/keyrings.alt
