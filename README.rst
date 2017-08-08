@@ -82,9 +82,9 @@ Encryption Backends
 
 Keyring_ *is the package used to manage encryption*.
 
-The default behavior is to select the most secure backend supported
-by the user's platform. To give you an idea, the following Keyring
-backends would likely be returned:
+The default behavior is to select the most secure backend supported by the
+user's platform. To give you an idea, the following Keyring backends would
+likely be returned:
 
 Mac OS X:
     Keychain_
@@ -167,6 +167,6 @@ References
 
 .. _dbus: https://pypi.python.org/pypi/dbus-python
 
-.. _Windows Credential Manager: https://docs.microsoft.com/en-us/uwp/api/Windows.Security.Credentials
+.. _Windows Credential Locker: https://technet.microsoft.com/en-us/library/jj554668.aspx
 
 .. _3rd-party Keyring encryption backends: http://github.com/jaraco/keyrings.alt
