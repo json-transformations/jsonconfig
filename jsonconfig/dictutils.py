@@ -1,4 +1,4 @@
-import collections
+"""Attribute & Dictionary Access for Dictories"""
 import os
 
 import keyring
@@ -10,6 +10,7 @@ from .errors import (
 
 
 class EnvironAttrDict(dict):
+    """Access to environment variables using attribute-style notation."""
 
     def __getattr__(self, attr):
         return os.environ.get(attr)
@@ -32,6 +33,7 @@ class EnvironAttrDict(dict):
 
 
 class KeyringAttrDict(dict):
+    """Ability to get & set passwords using attribute-style notation."""
 
     service = None
 
