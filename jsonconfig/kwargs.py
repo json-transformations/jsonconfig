@@ -18,7 +18,7 @@ def group_kwargs_by_funct(kwargs, functs, bad_kwds=EMPTY, safe_kwds=EMPTY):
     :params kwargs: incomming arguments
     :params functs: a sequence of functions
     :params bad_kwds: a sequence of disallowed keywords
-    :params safe_kwds: a sequence of (name, keywords) tuples
+    :params safe_kwds: a sequence of permitted keywords
     :returns: {funct-name: {key1:val1, key2:val2, ...}, ...}
 
     Keywords are derived by inpecting the function signatures.
