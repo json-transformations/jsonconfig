@@ -16,10 +16,10 @@ def group_kwargs_by_funct(kwargs, functs, bad_kwds=EMPTY, safe_kwds=EMPTY):
     """Fan keyword arguments out into their repective functions.
 
     :params kwargs: incomming arguments
-    :params funct: a sequence of functions
+    :params functs: a sequence of functions
     :params bad_kwds: a sequence of disallowed keywords
     :params safe_kwds: a sequence of (name, keywords) tuples
-    :returns: {funct-name: [key1:val1, key2:val2, ...], ...}
+    :returns: {funct-name: {key1:val1, key2:val2, ...}, ...}
 
     Keywords are derived by inpecting the function signatures.
     Keywords found in more than one function are not allowed.
