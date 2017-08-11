@@ -28,14 +28,6 @@ def get_filename(app_name, cfg_name, **app_dir_kwargs):
     return os.path.join(path, filename)
 
 
-def delete_config_file(**config_file_attrs):
-    filename = get_filename(**config_file_attrs)
-    try:
-        os.remove(filename)
-    except EnvironmentError as e:
-        raise FileError(e)
-
-
 def set_keyring(backend):
     """Select a Keyring backend name or object.
 
@@ -57,12 +49,10 @@ def set_keyring(backend):
 def from_json(filename, **from_json_kwargs):
     try:
         return box._from_json(filename=filename, **from_json_kwargs)
-    except FileNotFoundError:
+    except FileNotFoundError as e:
         return {}
     except EnvironmentError as e:
         raise FileError(e)
-    except ValueError as e:
-        raise FileEncodeError(e)
     except json.JSONDecodeError as e:
         raise JsonDecodeError(e)
 
