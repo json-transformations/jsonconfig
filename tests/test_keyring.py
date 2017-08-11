@@ -1,6 +1,9 @@
 import keyring
 
+import pytest
+
 from jsonconfig.datawrap import Keyring
+from jsonconfig.errors import SetPasswordError, DeletePasswordError
 
 
 def test_passwords():
@@ -24,3 +27,15 @@ def test_password_attrs():
         assert cfg.pwd.somekey == 'a secret'
         del cfg.pwd.somekey
         assert cfg.pwd.someuser is None
+
+
+def test_set_password_error():
+    with pytest.raises(SetPasswordError):
+        with Keyring('myapp') as cfg:
+            cfg.pwd[5] = None
+
+
+def test_delete_password_error():
+    with pytest.raises(DeletePasswordError):
+        with Keyring('myapp') as cfg:
+            del cfg.pwd[5]
