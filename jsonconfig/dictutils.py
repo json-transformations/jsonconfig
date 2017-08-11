@@ -24,7 +24,7 @@ class EnvironAttrDict(dict):
     def __delattr__(self, attr):
         try:
             del os.environ[attr]
-        except KeyError as e:
+        except (KeyError, TypeError) as e:
             raise DeleteEnvironVarError(e)
 
     __getitem__ = __getattr__
@@ -43,13 +43,13 @@ class KeyringAttrDict(dict):
     def __setattr__(self, attr, value):
         try:
             keyring.set_password(KeyringAttrDict.service, attr, value)
-        except keyring.errors.PasswordSetError as e:
+        except (keyring.errors.PasswordSetError, TypeError) as e:
             raise SetPasswordError(e)
 
     def __delattr__(self, attr):
         try:
             keyring.delete_password(KeyringAttrDict.service, attr)
-        except keyring.errors.PasswordDeleteError as e:
+        except (keyring.errors.PasswordDeleteError, TypeError) as e:
             raise DeletePasswordError(e)
 
     __getitem__ = __getattr__
