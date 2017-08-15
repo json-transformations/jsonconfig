@@ -15,16 +15,20 @@ from .errors import (
 )
 
 
+def mkdirs(path):
+    try:
+        os.makedirs(path)
+    except EnvironmentError as e:
+        raise FileError(e)
+
+
 def get_filename(app_name, cfg_name, **app_dir_kwargs):
     path, filename = os.path.split(app_name)
     if not path:
         path = click.get_app_dir(app_name, **app_dir_kwargs)
         filename = cfg_name
     if not os.path.exists(path):
-        try:
-            os.makedirs(path)
-        except EnvironmentError as e:
-            raise FileError(e)
+        mkdirs(path)
     return os.path.join(path, filename)
 
 
@@ -60,7 +64,7 @@ def from_json(filename, **from_json_kwargs):
 def to_json(data, filename, **to_json_kwargs):
     try:
         return box._to_json(data, filename=filename, **to_json_kwargs)
-    except TypeError as e:
+    except (TypeError, json.JSONDecodeError) as e:
         raise JsonEncodeError(e)
     except EnvironmentError as e:
         raise FileError(e)
@@ -93,7 +97,7 @@ class Config:
         if keyring:
             KeyringAttrDict.service = service_name or app_name
             if keyring and keyring is not True:
-                self.set_keyring(keyring)
+                set_keyring(keyring)
 
     def __enter__(self):
         self.env = EnvironAttrDict(os.environ)
