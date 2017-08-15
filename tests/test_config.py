@@ -1,10 +1,13 @@
 import os
-from tempfile import NamedTemporaryFile
+import shutil
+import tempfile
 
 import pytest
 
-from jsonconfig.core import get_filename, from_json, Config
-from jsonconfig.errors import FileError, JsonConfigError, JsonDecodeError
+from jsonconfig.core import get_filename, from_json, to_json, mkdirs, Config
+from jsonconfig.errors import (
+    FileError, JsonConfigError, JsonDecodeError, JsonEncodeError
+)
 
 
 def test_any_json_data():
@@ -51,10 +54,26 @@ def test_from_json_environ_error():
         from_json('whaaz u looking at?') == {}
 
 
-def test_from_json_decode_error():
-    tf = NamedTemporaryFile(delete=False)
-    tf.write(b'#$@&%*!')
-    tf.close()
+def test_from_json_decode_error(tmpdir):
+    p = tmpdir.mkdir("drat").join("doubledrat.json")
+    p.write(b'#$@&%*!')
     with pytest.raises(JsonDecodeError):
-        from_json(tf.name)
-    os.unlink(tf.name)
+        from_json(os.path.join(p.dirname, p.basename))
+
+
+def test_to_json_file_error():
+    with pytest.raises(FileError):
+        to_json(None, '#$@&%*!')
+
+
+def test_to_json_decode_error(tmpdir):
+    with pytest.raises(JsonEncodeError):
+        p = tmpdir.mkdir("drat").join("doubledrat.json")
+        to_json(b'#$@&%*!', filename=os.path.join(p.dirname, p.basename))
+
+
+def test_mkdirs():
+    with pytest.raises(FileError):
+        dirpath = tempfile.mkdtemp()
+        mkdirs(dirpath)
+        shutil.rmtree(dirpath)
