@@ -61,3 +61,28 @@ def test_set_keyring():
 def test_set_keyring():
     with Keyring('myapp', keyring=keyring.get_keyring()) as cfg:
         assert keyring.get_keyring() is not None
+
+
+def test_keyring_str():
+    with Keyring('myapp') as cfg:
+        assert str(cfg.pwd) == keyring.get_keyring().name
+
+
+def test_keyring_repr():
+    with Keyring('myapp') as cfg:
+        assert repr(cfg.pwd) == repr(keyring.backend)
+
+
+def test_keyring_pop():
+    with Keyring('myapp') as cfg:
+        cfg.pwd['__test__'] = '123'
+        assert cfg.pwd.pop('__test__') == '123'
+        assert cfg.pwd['__test__'] is None
+
+
+def test_keyring_update():
+    with Keyring('myapp') as cfg:
+        d = {'__test1__': '123', '__test2__': '456'}
+        cfg.pwd.update(d)
+        assert cfg.pwd.pop('__test1__') == '123'
+        assert cfg.pwd.pop('__test2__') == '456'
