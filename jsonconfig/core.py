@@ -6,7 +6,7 @@ import click
 import keyring
 from click.termui import hidden_prompt_func as get_passwd
 
-from .dictutils import (EnvironAttrDict, KeyringAttrDict)
+from .dictutils import EnvironAttrDict, KeyringAttrDict
 from .kwargs import box_, group_kwargs_by_funct
 from .errors import (
     FileError, FileEncodeError,
