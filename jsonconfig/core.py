@@ -6,8 +6,9 @@ import click
 import keyring
 from click.termui import hidden_prompt_func as get_passwd
 
+from ._compat import OPEN_PARAMETERS
 from .dictutils import EnvironAttrDict, KeyringAttrDict
-from .kwargs import box_, group_kwargs_by_funct
+from .kwargs import group_kwargs_by_funct, Signature
 from .errors import (
     FileError, FileEncodeError,
     JsonEncodeError, JsonDecodeError,
@@ -52,20 +53,18 @@ def set_keyring(backend):
 
 def from_json(filename, **from_json_kwargs):
     try:
+        if not os.path.exists(filename):
+            return {}
         return box._from_json(filename=filename, **from_json_kwargs)
-    except FileNotFoundError as e:
-        return {}
     except EnvironmentError as e:
         raise FileError(e)
-    except json.JSONDecodeError as e:
+    except ValueError as e:
         raise JsonDecodeError(e)
 
 
 def to_json(data, filename, **to_json_kwargs):
     try:
         return box._to_json(data, filename=filename, **to_json_kwargs)
-    except (TypeError, json.JSONDecodeError) as e:
-        raise JsonEncodeError(e)
     except EnvironmentError as e:
         raise FileError(e)
 
@@ -73,14 +72,15 @@ def to_json(data, filename, **to_json_kwargs):
 class Config:
 
     cfg_name = 'config.json'
-    functs = (open, click.get_app_dir, box_, json.load, json.dump)
-    bad_kwds = {'fp'}
+    funct_args = (Signature('open', OPEN_PARAMETERS), click.get_app_dir,
+                  Signature('box', box.BOX_PARAMETERS), json.load, json.dump)
+    bad_kwds = {'fp', 'name'}
     safe_kwds = set()
 
-    def __init__(self, app_name, mode='r+', *, cfg_name=None, box=None,
+    def __init__(self, app_name, mode='r+', cfg_name=None, box=None,
                  keyring=True, service_name=None, **kwargs):
 
-        args = (kwargs, Config.functs, Config.bad_kwds, Config.safe_kwds)
+        args = (kwargs, Config.funct_args, Config.bad_kwds, Config.safe_kwds)
         self.kwargs = group_kwargs_by_funct(*args)
 
         self.box = box
@@ -112,9 +112,9 @@ class Config:
                 json_kwargs.update(self.kwargs['load'])
                 self.data = from_json(self.filename, **json_kwargs)
                 if self.box:
-                    self.data = self.box(self.data, **self.kwargs['box_'])
+                    self.data = self.box(self.data, **self.kwargs['box'])
             else:
-                self.data = self.box({}, **self.kwargs['box_'])
+                self.data = self.box({}, **self.kwargs['box'])
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):

@@ -49,12 +49,7 @@ def test_keyring_name_error():
         set_keyring('my precious')
 
 
-def test_keyring_type_error():
-    with pytest.raises(KeyringTypeError):
-        set_keyring(b'test')
-
-
-def test_set_keyring():
+def test_get_keyring():
     set_keyring(keyring.get_keyring())
 
 

@@ -1,4 +1,3 @@
-import json
 import sys
 
 import click
@@ -30,7 +29,7 @@ class JsonEncodeError(JsonConfigError, TypeError):
     """Not JSON seriable."""
 
 
-class JsonDecodeError(JsonConfigError, json.JSONDecodeError):
+class JsonDecodeError(JsonConfigError, ValueError):
     """Not valid JSON."""
 
 
@@ -50,7 +49,7 @@ class DeletePasswordError(JsonConfigError, keyring.errors.PasswordDeleteError):
     """Unable to delete password."""
 
 
-class KeyringNameError(JsonConfigError, ValueError):
+class KeyringNameError(JsonConfigError):
     """Invalid Keyring Backend Name."""
 
 

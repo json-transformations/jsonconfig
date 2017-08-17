@@ -21,10 +21,10 @@ def test_environ_vars():
 
 def test_environ_attrs():
     with Environ('myapp') as cfg:
-        cfg.env.FOOL = 'Next time I send a damn fool, I go myself.'
+        cfg.env.FOOL = 'Next time I send a damn fool, I go myself.'
 
     with Environ('myapp') as cfg:
-        assert cfg.env['FOOL'] == 'Next time I send a damn fool, I go myself.'
+        assert cfg.env['FOOL'] == 'Next time I send a damn fool, I go myself.'
         del cfg.env['FOOL']
         assert cfg.env['FOOL'] is None
 
@@ -75,11 +75,6 @@ def test_environ_eq():
 def test_environ_ne():
     with Environ('myapp') as cfg:
         return cfg.env != {}
-
-
-def test_environ_copy():
-    with Environ('myapp') as cfg:
-        assert copy(cfg.env) == copy(os.environ)
 
 
 def test_environ_items():

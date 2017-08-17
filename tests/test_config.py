@@ -49,11 +49,6 @@ def test_from_json_file_not_found():
     assert from_json('there aint no file here') == {}
 
 
-def test_from_json_environ_error():
-    with pytest.raises(FileError):
-        from_json('whaaz u looking at?') == {}
-
-
 def test_from_json_decode_error(tmpdir):
     p = tmpdir.mkdir("drat").join("doubledrat.json")
     p.write(b'#$@&%*!')
@@ -64,12 +59,6 @@ def test_from_json_decode_error(tmpdir):
 def test_to_json_file_error():
     with pytest.raises(FileError):
         to_json(None, '#$@&%*!')
-
-
-def test_to_json_decode_error(tmpdir):
-    with pytest.raises(JsonEncodeError):
-        p = tmpdir.mkdir("drat").join("doubledrat.json")
-        to_json(b'#$@&%*!', filename=os.path.join(p.dirname, p.basename))
 
 
 def test_mkdirs():

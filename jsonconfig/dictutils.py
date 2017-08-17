@@ -40,9 +40,6 @@ class EnvironAttrDict(dict):
     def __repr__(self):
         return repr(os.environ)
 
-    def __reduce__(self):
-        return os.environ.__reduce__()
-
     def __contains__(self, key):
         return key in os.environ
 
@@ -51,9 +48,6 @@ class EnvironAttrDict(dict):
 
     def __ne__(self, d):
         return os.environ != d
-
-    def copy(self):
-        return copy(os.environ)
 
     def items(self):
         return os.environ.items()
@@ -92,13 +86,13 @@ class KeyringAttrDict(dict):
     def __setattr__(self, attr, value):
         try:
             keyring.set_password(KeyringAttrDict.service, attr, value)
-        except (keyring.errors.PasswordSetError, TypeError) as e:
+        except Exception as e:
             raise SetPasswordError(e)
 
     def __delattr__(self, attr):
         try:
             keyring.delete_password(KeyringAttrDict.service, attr)
-        except (keyring.errors.PasswordDeleteError, TypeError) as e:
+        except Exception as e:
             raise DeletePasswordError(e)
 
     def __str__(self):

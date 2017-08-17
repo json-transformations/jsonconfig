@@ -1,17 +1,27 @@
 import json
 
+import box
+import click
 import pytest
 
-from jsonconfig.kwargs import group_kwargs_by_funct
+from jsonconfig._compat import OPEN_PARAMETERS
+from jsonconfig.kwargs import group_kwargs_by_funct, Signature
 
 
-FUNCTS = (open, json.load, json.dump)
+FUNCTS = (
+    Signature('open', OPEN_PARAMETERS),
+    Signature('box', box.BOX_PARAMETERS),
+    click.get_app_dir,
+    json.load,
+    json.dump
+)
 
 
 def test_kwarg_splitter():
-    kwargs = {'encoding': 'utf-8', 'indent': 2}
+    kwargs = {'frozen_box': True, 'indent': 2}
     result = group_kwargs_by_funct(kwargs, FUNCTS)
-    expect = {'open': {'encoding': 'utf-8'}, 'load': {}, 'dump': {'indent': 2}}
+    expect = {'open': {}, 'box': {'frozen_box': True},
+              'get_app_dir': {}, 'load': {}, 'dump': {'indent': 2}}
     assert result == expect
 
 
