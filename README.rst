@@ -136,13 +136,7 @@ Data Conversion
   defaultdicts.  You can convert back-and-forth between any of them at any
   time.
 
-* You convert from ``BOXED``, ``FROZEN`` or ``NESTED`` to ``PLAIN`` at
-  anytime.
-
-* You can convert from ``PLAIN`` to ``BOXED``, ``FROZEN`` or ``NESTED``
-  if the data is a Mapping.
-
-* All of the objects listed above are Mappings, if your data object is not
+* The objects listed above are Mappings, if your data object is not
   a Mapping then use ``PLAIN`` to free yourself of all of the trappings.
   With ``PLAIN`` it's just you and your buddy Python; we get out of the way.
 
