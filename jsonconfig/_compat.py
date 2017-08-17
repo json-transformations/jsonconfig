@@ -1,6 +1,5 @@
 import inspect
 import sys
-from collections import namedtuple
 
 VER = sys.version_info
 PY2 = VER.major < 3
@@ -11,6 +10,7 @@ def get_parameters(funct):
     if PY2:
         return inspect.getargspec(funct).args
     return inspect.signature(funct).parameters
+
 
 if PY35_PLUS:
     OPEN_PARAMETERS = get_parameters(open)
