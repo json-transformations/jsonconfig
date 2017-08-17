@@ -5,11 +5,9 @@ from box import Box
 
 from .core import Config
 
-PLAIN = lambda x: x
 BOXED = Box
 FROZEN = partial(Box, frozen_box=True)
 NESTED = partial(Box, default_box=True)
-
 
 BoxConfig = partial(Config, box=Box)
 FrozenBox = partial(Config, box=Box, frozen_box=True)

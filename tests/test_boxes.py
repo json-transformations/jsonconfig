@@ -1,7 +1,7 @@
 import box
 import pytest
 
-from jsonconfig.datawrap import BoxConfig, FrozenBox, DefaultBox
+from jsonconfig.shortcuts import BoxConfig, FrozenBox, DefaultBox
 
 
 def test_boxed_data():

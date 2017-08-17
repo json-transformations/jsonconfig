@@ -1,9 +1,8 @@
 import os
-from copy import copy
 
 import pytest
 
-from jsonconfig.datawrap import Environ
+from jsonconfig.shortcuts import Environ
 from jsonconfig.errors import SetEnvironVarError, DeleteEnvironVarError
 
 

@@ -1,12 +1,11 @@
+import keyring
 import pytest
 
-from jsonconfig.core import set_keyring
-from jsonconfig.datawrap import Keyring
+from jsonconfig.shortcuts import Keyring
+from jsonconfig.keyrings import set_keyring
 from jsonconfig.errors import (
-    SetPasswordError, DeletePasswordError, KeyringNameError, KeyringTypeError
+    SetPasswordError, DeletePasswordError, KeyringNameError
 )
-
-import keyring
 
 
 def test_passwords():
@@ -54,7 +53,7 @@ def test_get_keyring():
 
 
 def test_set_keyring():
-    with Keyring('myapp', keyring=keyring.get_keyring()) as cfg:
+    with Keyring('myapp', keyring=keyring.get_keyring()):
         assert keyring.get_keyring() is not None
 
 

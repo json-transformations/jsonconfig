@@ -3,70 +3,13 @@ import os.path
 
 import box
 import click
-import keyring
-from click.termui import hidden_prompt_func as get_passwd
 
 from ._compat import OPEN_PARAMETERS
-from .dictutils import EnvironAttrDict, KeyringAttrDict
+from .appdirs import get_filename
+from .environs import EnvironAttrDict
+from .jsonutils import to_json_file, from_json_file
+from .keyrings import set_keyring, KeyringAttrDict
 from .kwargs import group_kwargs_by_funct, Signature
-from .errors import (
-    FileError, FileEncodeError,
-    JsonEncodeError, JsonDecodeError,
-    KeyringNameError, KeyringTypeError
-)
-
-
-def mkdirs(path):
-    try:
-        os.makedirs(path)
-    except EnvironmentError as e:
-        raise FileError(e)
-
-
-def get_filename(app_name, cfg_name, **app_dir_kwargs):
-    path, filename = os.path.split(app_name)
-    if not path:
-        path = click.get_app_dir(app_name, **app_dir_kwargs)
-        filename = cfg_name
-    if not os.path.exists(path):
-        mkdirs(path)
-    return os.path.join(path, filename)
-
-
-def set_keyring(backend):
-    """Select a Keyring backend name or object.
-
-    Supported backend names: OS_X, WIndows, kwallet, and SecretService
-    Also accepts any valid keyring.backend object.
-    For additional information on Keyring backends see
-    https://github.com/jaraco/keyring
-    """
-    try:
-        if not isinstance(backend, keyring.backend.KeyringBackend):
-            backend = getattr(keyring.backends, backend.lstrip('_'))
-        keyring.set_keyring(backend)
-    except AttributeError as e:
-        raise KeyringNameError(e)
-    except TypeError as e:
-        raise KeyringTypeError(e)
-
-
-def from_json(filename, **from_json_kwargs):
-    try:
-        if not os.path.exists(filename):
-            return {}
-        return box._from_json(filename=filename, **from_json_kwargs)
-    except EnvironmentError as e:
-        raise FileError(e)
-    except ValueError as e:
-        raise JsonDecodeError(e)
-
-
-def to_json(data, filename, **to_json_kwargs):
-    try:
-        return box._to_json(data, filename=filename, **to_json_kwargs)
-    except EnvironmentError as e:
-        raise FileError(e)
 
 
 class Config:
@@ -110,7 +53,7 @@ class Config:
             if self.readable:
                 json_kwargs = self.kwargs['open']
                 json_kwargs.update(self.kwargs['load'])
-                self.data = from_json(self.filename, **json_kwargs)
+                self.data = from_json_file(self.filename, **json_kwargs)
                 if self.box:
                     self.data = self.box(self.data, **self.kwargs['box'])
             else:
@@ -121,4 +64,4 @@ class Config:
         if self.writeable:
             json_kwargs = self.kwargs['open']
             json_kwargs.update(self.kwargs['dump'])
-            to_json(self.data, self.filename, **json_kwargs)
+            to_json_file(self.data, self.filename, **json_kwargs)
