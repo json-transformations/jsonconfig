@@ -1,4 +1,5 @@
 import os
+from stat import S_IWUSR
 
 import pytest
 
@@ -29,7 +30,11 @@ def test_from_json_decode_error():
         from_json(b'#$@&%*!')
 
 
-def test_from_json_decode():
+def test_from_json_file_recover_from_environment_error():
+    assert from_json_file(b'#$@&%*!') == {}
+
+
+def test_from_json():
     data = '{"Flying Colors": "Everything Changes"}'
     result = from_json(data)
     assert result == {'Flying Colors': 'Everything Changes'}

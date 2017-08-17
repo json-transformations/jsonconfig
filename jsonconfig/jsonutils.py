@@ -7,11 +7,9 @@ import box
 
 def from_json_file(filename, **from_json_kwargs):
     try:
-        if not os.path.exists(filename):
-            return {}
         return box._from_json(filename=filename, **from_json_kwargs)
-    except EnvironmentError as e:
-        raise FileError(e)
+    except EnvironmentError:
+        return {}
     except ValueError as e:
         raise JsonDecodeError(e)
 
