@@ -20,7 +20,7 @@ class Config:
     bad_kwds = {'fp', 'name'}
     safe_kwds = set()
 
-    def __init__(self, app_name, mode='r+', cfg_name=None, box=None,
+    def __init__(self, app_name, mode='w+', cfg_name=None, box=None,
                  keyring=True, service_name=None, **kwargs):
 
         args = (kwargs, Config.funct_args, Config.bad_kwds, Config.safe_kwds)
@@ -29,8 +29,8 @@ class Config:
         self.box = box
         mode = mode or ''
         frozen = kwargs.get('frozen_box')
-        self.readable = 'r' in mode or mode.endswith('+') and not frozen
-        self.writeable = 'w' in mode or mode.endswith('+')
+        self.readable = 'r' in mode or '+' in mode and not frozen
+        self.writeable = 'w' in mode or '+' in mode
         if self.readable or self.writeable:
             cfg_name = cfg_name or Config.cfg_name
             app_dir_kwargs = self.kwargs['get_app_dir']
