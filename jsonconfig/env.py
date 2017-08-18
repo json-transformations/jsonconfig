@@ -1,6 +1,6 @@
-from .errors import SetEnvironVarError, DeleteEnvironVarError
-
 import os
+
+from .errors import SetEnvironVarError, DeleteEnvironVarError
 
 
 class EnvironAttrDict(dict):
