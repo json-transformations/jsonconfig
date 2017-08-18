@@ -22,7 +22,7 @@ Basic Example
         cfg.pwd.a_secret = 'Encrypted data ...'
         cfg.env.a_variable = 'Environment variables.'
 
-Additional Examples can be found in the `documentation`_.
+Additional Examples can be found in the documentation_.
 
 Simply Sane
 -----------
@@ -147,8 +147,8 @@ References
 
 .. target-notes::
 
-.. _JSON Config's official documentation:
-    http://jsonconfig.readthedocs.io/en/latest/config/samples.html
+.. _documentation:
+    http://jsonconfig.readthedocs.io
 
 .. _Click: http://github.com/pallets/click
 
