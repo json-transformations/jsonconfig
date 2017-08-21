@@ -12,6 +12,8 @@ Welcome to JSON Config's documentation!
 
    config/intro
    config/samples
+   config/data
+   config/appdir
 
 Indices and tables
 ==================
