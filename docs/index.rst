@@ -12,8 +12,14 @@ Welcome to JSON Config's documentation!
 
    config/intro
    config/samples
-   config/data
+   config/basics
    config/appdir
+   config/data
+   config/wrappers
+   config/pwd
+   config/env
+   config/errors
+   config/kwargs
 
 Indices and tables
 ==================
