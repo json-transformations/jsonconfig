@@ -3,7 +3,7 @@ import os
 from .errors import SetEnvironVarError, DeleteEnvironVarError
 
 
-class Environ(dict):
+class EnvironAttrDict(dict):
     """Access to environment variables using attribute-style notation."""
 
     def __getattr__(self, attr):

@@ -4,7 +4,7 @@ import tempfile
 
 import pytest
 
-from jsonconfig.appdirs import get_filename, mkdirs
+from jsonconfig.appdir import get_filename, mkdirs
 from jsonconfig.core import Config
 from jsonconfig.errors import FileError
 

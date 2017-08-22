@@ -1,8 +1,10 @@
+from getpass import getuser
+
 import keyring
 import pytest
 
 from jsonconfig.shortcuts import Keyring
-from jsonconfig.keyrings import set_keyring
+from jsonconfig.pwd import get_keyring, get_keyrings, set_keyring
 from jsonconfig.errors import (
     SetPasswordError, DeletePasswordError, KeyringNameError
 )
@@ -12,7 +14,7 @@ def test_passwords():
     with Keyring('myapp') as cfg:
         cfg.pwd['some user'] = 'supercalifragilisticexpialidocious'
 
-    password = keyring.get_password('myapp', 'some user')
+    password = keyring.get_password('myapp_' +  getuser(), 'some user')
     assert password == 'supercalifragilisticexpialidocious'
 
     with Keyring('myapp') as cfg:
@@ -49,7 +51,11 @@ def test_keyring_name_error():
 
 
 def test_get_keyring():
-    set_keyring(keyring.get_keyring())
+    assert get_keyring() == keyring.get_keyring()
+
+
+def test_get_keyrings():
+    assert get_keyrings() == keyring.backend.get_all_keyring()
 
 
 def test_set_keyring():
