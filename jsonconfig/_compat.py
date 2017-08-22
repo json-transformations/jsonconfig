@@ -11,7 +11,5 @@ def get_parameters(funct):
             else inspect.signature(funct).parameters)
 
 
-OPEN_PARAMETERS = (
-    'file', 'mode', 'buffering', 'encoding', 'errors', 'newline'
-)
-OPEN_PARAMETERS = get_parameters(open) if PY35_PLUS else OPEN_PARAMETERS
+OPEN_PARAMS = ('file', 'mode', 'buffering', 'encoding', 'errors', 'newline')
+OPEN_PARAMETERS = get_parameters(open) if PY35_PLUS else OPEN_PARAMS
