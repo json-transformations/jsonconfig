@@ -1,4 +1,6 @@
+import getpass
 import inspect
+import os
 import sys
 
 VER = sys.version_info
@@ -13,3 +15,14 @@ def get_parameters(funct):
 
 OPEN_PARAMS = ('file', 'mode', 'buffering', 'encoding', 'errors', 'newline')
 OPEN_PARAMETERS = get_parameters(open) if PY35_PLUS else OPEN_PARAMS
+
+
+def get_user():
+    """Compatibility with tox & Windows.
+
+    Work around for pwd import Error when running tox in Windows.
+    """
+    try:
+        return getpass.getuser()
+    except ImportError:
+        return os.getenv('username', '')
