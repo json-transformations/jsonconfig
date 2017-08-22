@@ -1,11 +1,10 @@
 import json
 import os.path
-from getpass import getuser
 
 import box
 import click
 
-from ._compat import OPEN_PARAMETERS
+from ._compat import get_user, OPEN_PARAMETERS
 from .appdir import get_filename
 from .env import EnvironAttrDict
 from .jsonutils import to_json_file, from_json_file
@@ -40,7 +39,7 @@ class Config:
         self.keyring = keyring
         if keyring:
             keyring_ = KeyringAttrDict
-            keyring_.service = service_name or app_name + '_' + getuser()
+            keyring_.service = service_name or app_name + '_' + get_user()
             if keyring and keyring is not True:
                 set_keyring(keyring)
 
