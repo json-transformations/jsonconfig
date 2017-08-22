@@ -3,23 +3,23 @@ import keyring
 from .errors import SetPasswordError, DeletePasswordError, KeyringNameError
 
 
-class KeyringAttrDict(dict):
+class Keyring(dict):
     """Ability to get & set passwords using attribute-style notation."""
 
     service = None
 
     def __getattr__(self, attr):
-        return keyring.get_password(KeyringAttrDict.service, attr)
+        return keyring.get_password(Keyring.service, attr)
 
     def __setattr__(self, attr, value):
         try:
-            keyring.set_password(KeyringAttrDict.service, attr, value)
+            keyring.set_password(Keyring.service, attr, value)
         except Exception as e:
             raise SetPasswordError(e)
 
     def __delattr__(self, attr):
         try:
-            keyring.delete_password(KeyringAttrDict.service, attr)
+            keyring.delete_password(Keyring.service, attr)
         except Exception as e:
             raise DeletePasswordError(e)
 
@@ -57,3 +57,17 @@ def set_keyring(backend):
         keyring.set_keyring(backend)
     except AttributeError as e:
         raise KeyringNameError(e)
+
+
+def get_keyring():
+    """Get current keyring backend.
+
+    Returns the Keyring class, the `name` property will return the name
+    of the keyring.
+    """
+    return keyring.get_keyring()
+
+
+def get_keyrings():
+    """Get a list of currently available keyrings."""
+    return keyring.backend.get_all_keyring()
