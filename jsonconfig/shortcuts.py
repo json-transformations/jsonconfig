@@ -5,6 +5,7 @@ from box import Box
 
 from .core import Config
 
+PLAIN = dict
 BOXED = Box
 FROZEN = partial(Box, frozen_box=True)
 NESTED = partial(Box, default_box=True)
