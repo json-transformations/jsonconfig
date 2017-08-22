@@ -24,7 +24,7 @@ def to_json_file(data, filename, **to_json_kwargs):
 def from_json(data, **from_json_kwargs):
     try:
         return box._from_json(data, **from_json_kwargs)
-    except ValueError as e:
+    except (ValueError, TypeError) as e:
         raise JsonDecodeError(e)
 
 
