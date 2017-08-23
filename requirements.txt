@@ -1,0 +1,6 @@
+click==6.7
+keyring==10.4.0
+python-box==3.0.1
+pytest-cov
+flake8
+tox
