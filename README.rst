@@ -145,22 +145,31 @@ References
 .. target-notes::
 
 .. _documentation:
-    http://jsonconfig.readthedocs.io
+    https://jsonconfig.readthedocs.io/en/latest/config/examples.html
 
-.. _Click: http://github.com/pallets/click
+.. _Click:
+    http://github.com/pallets/click
 
-.. _Keyring: https://github.com/jaraco/keyring
+.. _Keyring:
+    https://github.com/jaraco/keyring
 
-.. _Box: http://github.com/cdgriffith/Box
+.. _Box:
+    http://github.com/cdgriffith/Box
 
-.. _Keychain: https://en.wikipedia.org/wiki/Keychain_%28software%29
+.. _Keychain:
+    https://en.wikipedia.org/wiki/Keychain_%28software%29
 
-.. _Secret Service: http://standards.freedesktop.org/secret-service
+.. _Secret Service:
+    http://standards.freedesktop.org/secret-service
 
-.. _kwallet: https://en.wikipedia.org/wiki/KWallet
+.. _kwallet:
+    https://en.wikipedia.org/wiki/KWallet
 
-.. _dbus: https://pypi.python.org/pypi/dbus-python
+.. _dbus:
+    https://pypi.python.org/pypi/dbus-python
 
-.. _Windows Credential Locker: https://technet.microsoft.com/en-us/library/jj554668.aspx
+.. _Windows Credential Locker:
+    https://technet.microsoft.com/en-us/library/jj554668.aspx
 
-.. _3rd-party Keyring encryption backends: http://github.com/jaraco/keyrings.alt
+.. _3rd-party Keyring encryption backends:
+    http://github.com/jaraco/keyrings.alt
