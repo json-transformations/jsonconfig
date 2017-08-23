@@ -4,6 +4,14 @@ Welcome to JSON Config
 
 *Configuration doesn't get any easier than this ...*
 
+============
+Installation
+============
+
+.. code::
+
+    pip install jsonconfig-tool
+
 ===================
 What's it Used For?
 ===================
@@ -41,14 +49,6 @@ either dictionary-keys or attribute-style notation.  For example,
     with BoxConfig('myapp') as cfg:
         cfg.data.key1 = 'Some configuration data ...'
         cfg.data.key2 = 'Some more data ...'
-
-============
-Installation
-============
-
-.. code::
-
-    pip install jsonconfig
 
 ===============================
 Designed with Stability in Mind

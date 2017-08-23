@@ -3,6 +3,10 @@ Welcome to JSON Config
 
 *Configuration doesn't get any easier than this ...*
 
+.. code::
+
+    pip install jsonconfig-tool
+
 What's it Used For?
 -------------------
  
@@ -33,13 +37,6 @@ Simply Sane
     * The ``data`` is stored in the user's local application directory.
     * The ``pwd`` data is encrypted and stored in a keyring vault.
     * The ``env`` data is stored in environment variables.
-
-Installation
-------------
-
-.. code::
-
-    pip install jsonconfig
 
 Configuration File Locations
 ----------------------------
