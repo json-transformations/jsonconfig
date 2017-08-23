@@ -1,6 +1,6 @@
-########################
-Contributing to JSON Cat
-########################
+###########################
+Contributing to JSON Config
+###########################
 
 Welcome!  Your contributions are valued; bug reports, code contributions, 
 documentation improvements, helping answer posted questions, etc.
