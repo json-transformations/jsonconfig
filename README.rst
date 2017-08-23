@@ -26,7 +26,7 @@ Additional Examples can be found in the documentation_.
 
 Simply Sane
 -----------
-*No bad juju here* ...
+*No magic here* ...
 
 .. topic:: In the context manager above:
 
