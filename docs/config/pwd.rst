@@ -1,3 +1,5 @@
+.. _`pwd`:
+
 #############
 Encryped Data
 #############
@@ -7,6 +9,7 @@ Keyring_ *is the package used to manage encryption*.
 To save a secret ...
 
 .. code::
+
     from jsonconfig import Config
 
     with Config('myapp') as cfg:
@@ -37,7 +40,7 @@ Unix (with dbus installed):
     kwallet_
 
 Windows:
-    `Windows Credential Manager`_
+    `Windows Credential Locker`_
 
 ===========================
 How-to Set the Service Name
@@ -165,3 +168,5 @@ References
 .. _kwallet: https://en.wikipedia.org/wiki/KWallet
 
 .. _dbus: https://pypi.python.org/pypi/dbus-python
+
+.. _Windows Credential Locker: https://technet.microsoft.com/en-us/library/jj554668.aspx

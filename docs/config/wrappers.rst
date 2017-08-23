@@ -23,19 +23,12 @@ NESTED
      doesn't exist.  Instead, it'll return None; even if the key's nested
      and multiple keys are missing.
 
-
-
+===============
 Data Conversion
----------------
+===============
 
 * ``BOXED``, ``FROZEN`` and ``NESTED`` are all subclasses of dicts or
   defaultdicts.  You can convert back-and-forth between any of them at any
   time.
-
-* You convert from ``BOXED``, ``FROZEN`` or ``NESTED`` to ``PLAIN`` at
-  anytime.
-
-* You can convert from ``PLAIN`` to ``BOXED``, ``FROZEN`` or ``NESTED`` only
-  if the data is a Mapping.
 
 * ``PLAIN`` is the only data type that supports non-Mapping objects.

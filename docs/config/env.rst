@@ -1,6 +1,11 @@
+.. _`env`:
+
 #####################
 Environment Variables
 #####################
+
+*JSON Config provides both dictionary-key and attribute-style access to
+environment variables via* `os.environ`_.
 
 .. code::
 
@@ -101,3 +106,8 @@ To retrieve it ...
 
     with Environ('myapp', mode=None) as cfg:
         settings = from_json(cfg.env.settings)
+
+
+
+.. _`os.environ`:
+    https://docs.python.org/3/library/os.html#os.environment

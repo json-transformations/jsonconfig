@@ -11,8 +11,9 @@ Welcome to JSON Config's documentation!
    :caption: Contents:
 
    config/intro
-   config/samples
+   config/examples
    config/basics
+   config/serialization
    config/appdir
    config/data
    config/wrappers

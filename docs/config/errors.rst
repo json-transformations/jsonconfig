@@ -1,3 +1,5 @@
+.. _exception_handling:
+
 ##################
 Exception Handling
 ##################
