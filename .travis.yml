@@ -8,5 +8,5 @@ python:
 
 install: "pip install click keyring python-box pytest" 
 script:
-  - export PYTHONPATH=$PYTHONPATH:/home/travis/build/json-transformations/jsonconfig 
+  - "export PYTHONPATH=$PYTHONPATH:/home/travis/build/json-transformations/jsonconfig" 
   - pytest
