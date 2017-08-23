@@ -1,3 +1,4 @@
+before_script: export PYTHONPATH=$PYTHONPATH:$(pwd)
 language: python
 python:
   - "2.7"
