@@ -22,14 +22,16 @@ def test_config_file_make_dirs(tmpdir):
     assert os.path.isdir(cfgdir) is True
 
 
-def test_get_filename():
+def test_get_filename(tmpdir):
     path = get_filename('myapp', Config.cfg_name)
     path, filename = os.path.split(path)
     path, app_name = os.path.split(path)
     assert app_name == 'myapp'
     assert filename == Config.cfg_name
 
-    result = get_filename('/test/config.json', None)
+    f = 'config.json'
+    d = tmpdir.mkdir('test')
+    result = get_filename(d.join(f), None)
     path, filename = os.path.split(result)
-    assert path == '/test'
-    assert filename == 'config.json'
+    assert path == d
+    assert filename == f
