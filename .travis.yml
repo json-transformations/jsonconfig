@@ -8,8 +8,7 @@ python:
 env:
   global:
     - PYTHONPATH="/home/travis/build/json-transformations/jsonconfig"
-install: "pip install click keyring python-box pytest" 
-script: py.test
+install: "pip install click keyring python-box pytest-cov" 
+script: py.test --cov=jsonconfig
 after_success:
-    - pip install coveralls --use-mirrors
     - coveralls
