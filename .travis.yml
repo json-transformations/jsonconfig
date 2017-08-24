@@ -11,4 +11,4 @@ env:
     - PYTHONPATH="/home/travis/build/json-transformations/jsonconfig"
 
 install: "pip install click keyring python-box pytest" 
-script: pytest
+script: py.test
