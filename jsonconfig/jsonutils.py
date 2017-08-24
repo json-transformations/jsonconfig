@@ -1,5 +1,3 @@
-import os
-
 from .errors import FileError, JsonDecodeError
 
 import box

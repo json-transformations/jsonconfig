@@ -42,10 +42,11 @@ def group_kwargs_by_funct(kwargs, funct_args, bad_kwds=EMPTY, safe_kwds=EMPTY):
     funct_kwds = [key for f in funct_params for key in f.args]
     dup_kwds = {i for i, count in Counter(funct_kwds).items() if count > 1}
     safe_kwds |= set(funct_kwds) - dup_kwds - bad_kwds
-    unexpected_kwds =  kwds - safe_kwds
+    unexpected_kwds = kwds - safe_kwds
     if unexpected_kwds:
         err_mesg = 'Type Error: Config got unexpected keyword arguments {!r}'
         raise TypeError(err_mesg.format(unexpected_kwds))
-    kwds = [{k: v for k, v in kwargs.items() if k in (i.args & safe_kwds)} for i in funct_params]
+    kwds = [{k: v for k, v in kwargs.items() if k in (i.args & safe_kwds)}
+            for i in funct_params]
     print(kwds)
     return dict(zip((f.name for f in funct_params), kwds))

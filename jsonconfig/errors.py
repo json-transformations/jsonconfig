@@ -51,4 +51,3 @@ class DeletePasswordError(JsonConfigError, keyring.errors.PasswordDeleteError):
 
 class KeyringNameError(JsonConfigError):
     """Invalid Keyring Backend Name."""
-
