@@ -1,37 +1,58 @@
+import os
 import sys
-from getpass import getuser
 
 import keyring
 import pytest
 
 from jsonconfig._compat import get_user
+from jsonconfig.pwd import KeyringAttrDict
 from jsonconfig.shortcuts import Keyring
-from jsonconfig.pwd import get_keyring, get_keyrings, set_keyring
 from jsonconfig.errors import (
     SetPasswordError, DeletePasswordError, KeyringNameError
 )
 
-SERVICE_NAME = '_'.join(('myapp', get_user(), str(sys.version_info)))
+SERVICE_NAME = 'myservice'
+
+
+class TestKeyring(keyring.backend.KeyringBackend):
+
+    priority = 1
+    vault = {SERVICE_NAME: {}}
+
+    def set_password(self, servicename, username, password):
+        if not isinstance(password, (str, bytes)):
+            raise ValueError()
+        if servicename not in TestKeyring.vault:
+            TestKeyring.vault[servicename] = {}
+        TestKeyring.vault[servicename][username] = password
+
+    def get_password(self, servicename, username):
+        if servicename in TestKeyring.vault:
+            return TestKeyring.vault[servicename].get(username)
+
+    def delete_password(self, servicename, username):
+        del TestKeyring.vault[servicename][username]
+
+
+test_keyring = TestKeyring()
+KeyringAttrDict.keyring = keyring
 
 
 def test_passwords():
-    with Keyring('myapp', service_name=SERVICE_NAME) as cfg:
+    with Keyring('', service_name=SERVICE_NAME, keyring=test_keyring) as cfg:
         cfg.pwd['some user'] = 'supercalifragilisticexpialidocious'
 
-    password = keyring.get_password(SERVICE_NAME, 'some user')
-    assert password == 'supercalifragilisticexpialidocious'
-
-    with Keyring('myapp', service_name=SERVICE_NAME) as cfg:
+    with Keyring('', service_name=SERVICE_NAME, keyring=test_keyring) as cfg:
         assert cfg.pwd['some user'] == 'supercalifragilisticexpialidocious'
         del cfg.pwd['some user']
         assert cfg.pwd['some user'] is None
 
 
 def test_password_attrs():
-    with Keyring('myapp', service_name=SERVICE_NAME) as cfg:
+    with Keyring('', service_name=SERVICE_NAME, keyring=test_keyring) as cfg:
         cfg.pwd.somekey = 'open sesame'
 
-    with Keyring('myapp', service_name=SERVICE_NAME) as cfg:
+    with Keyring('', service_name=SERVICE_NAME, keyring=test_keyring) as cfg:
         assert cfg.pwd.somekey == 'open sesame'
         del cfg.pwd.somekey
         assert cfg.pwd.someuser is None
@@ -39,54 +60,63 @@ def test_password_attrs():
 
 def test_set_password_error():
     with pytest.raises(SetPasswordError):
-        with Keyring('myapp', service_name=SERVICE_NAME) as cfg:
+        with Keyring('', service_name=SERVICE_NAME,
+                     keyring=test_keyring) as cfg:
             cfg.pwd[5] = None
 
 
 def test_delete_password_error():
     with pytest.raises(DeletePasswordError):
-        with Keyring('myapp', service_name=SERVICE_NAME) as cfg:
+        with Keyring('', service_name=SERVICE_NAME,
+                     keyring=test_keyring) as cfg:
             del cfg.pwd[5]
 
 
 def test_keyring_name_error():
     with pytest.raises(KeyringNameError):
-        set_keyring('my precious')
+        KeyringAttrDict.set_keyring('my precious')
 
 
 def test_get_keyring():
-    assert get_keyring() == keyring.get_keyring()
+    result = KeyringAttrDict.get_keyring()
+    assert result == test_keyring
 
 
 def test_get_keyrings():
-    assert get_keyrings() == keyring.backend.get_all_keyring()
-
-
-def test_set_keyring():
-    with Keyring('myapp', keyring=keyring.get_keyring()):
-        assert keyring.get_keyring() is not None
+    result = KeyringAttrDict.get_keyrings()
+    expect = keyring.backend.get_all_keyring()
+    assert type(result) == type(expect)
 
 
 def test_keyring_str():
-    with Keyring('myapp') as cfg:
-        assert str(cfg.pwd) == keyring.get_keyring().name
+    with Keyring('') as cfg:
+        result = str(cfg.pwd)
+        assert result == KeyringAttrDict.get_keyring().name
 
 
 def test_keyring_repr():
-    with Keyring('myapp') as cfg:
-        assert repr(cfg.pwd) == repr(keyring.backend)
+    with Keyring('') as cfg:
+        result = repr(cfg.pwd)
+        assert result == repr(test_keyring)
 
 
 def test_keyring_pop():
-    with Keyring('myapp', service_name=SERVICE_NAME) as cfg:
+    with Keyring('', service_name=SERVICE_NAME,
+                 keyring=test_keyring) as cfg:
         cfg.pwd['__test__'] = '123'
         assert cfg.pwd.pop('__test__') == '123'
         assert cfg.pwd['__test__'] is None
 
 
 def test_keyring_update():
-    with Keyring('myapp', service_name=SERVICE_NAME) as cfg:
+    with Keyring('', service_name=SERVICE_NAME,
+                 keyring=test_keyring) as cfg:
         d = {'__test1__': '123', '__test2__': '456'}
         cfg.pwd.update(d)
         assert cfg.pwd.pop('__test1__') == '123'
         assert cfg.pwd.pop('__test2__') == '456'
+
+
+def test_getuser_import_error():
+    result = get_user(is_test=True)
+    assert result == os.getenv('username', '')
