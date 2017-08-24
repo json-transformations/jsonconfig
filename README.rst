@@ -180,5 +180,5 @@ References
    :target: https://travis-ci.org/json-transformations/jsonconfig
 .. |Coverage Status| image:: https://coveralls.io/repos/github/json-transformations/jsonconfig/badge.svg?branch=master
    :target: https://coveralls.io/github/json-transformations/jsonconfig?branch=master
-   |Version Status| image:: https://badge.fury.io/py/jsonconfig-tool.svg
+.. |Version Status| image:: https://badge.fury.io/py/jsonconfig-tool.svg
    :target: https://pypi.python.org/pypi/jsonconfig-tool
