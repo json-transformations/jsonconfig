@@ -39,7 +39,7 @@ class Config:
 
         self.keyring = keyring
         if keyring:
-            service = service_name or app_name + '_' + get_user()
+            service = (service_name or app_name) + '_' + get_user()
             KeyringAttrDict.service = service
             KeyringAttrDict.keyring = KeyringAttrDict.keyring or keyring_module
             if keyring and keyring is not True:
