@@ -3,12 +3,13 @@ import os.path
 
 import box
 import click
+import keyring as keyring_module
 
 from ._compat import get_user, OPEN_PARAMETERS
 from .appdir import get_filename
 from .env import EnvironAttrDict
 from .jsonutils import to_json_file, from_json_file
-from .pwd import set_keyring, KeyringAttrDict
+from .pwd import KeyringAttrDict
 from .kwargs import group_kwargs_by_funct, Signature
 
 
@@ -38,10 +39,11 @@ class Config:
 
         self.keyring = keyring
         if keyring:
-            keyring_ = KeyringAttrDict
-            keyring_.service = service_name or app_name + '_' + get_user()
+            service = service_name or app_name + '_' + get_user()
+            KeyringAttrDict.service = service
+            KeyringAttrDict.keyring = KeyringAttrDict.keyring or keyring_module
             if keyring and keyring is not True:
-                set_keyring(keyring)
+                KeyringAttrDict.set_keyring(keyring)
 
     def __enter__(self):
         self.env = EnvironAttrDict(os.environ)
