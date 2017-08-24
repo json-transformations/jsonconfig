@@ -16,10 +16,10 @@ def test_mkdirs():
         shutil.rmtree(dirpath)
 
 
-def test_config_file_make_dirs():
-    get_filename('./__test1/__test2/config.json', None)
-    assert os.path.isdir('./__test1/__test2') is True
-    os.removedirs('./__test1/__test2')
+def test_config_file_make_dirs(tmpdir):
+    cfgdir = os.path.join(tmpdir, './test1/test2/config.json')
+    get_filename(os.path.join(cfgdir, 'config.json'), None)
+    assert os.path.isdir(cfgdir) is True
 
 
 def test_get_filename():
