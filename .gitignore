@@ -1,3 +1,9 @@
-*.pyc
 .cache
 .coverage
+*.egg-info
+*.pyc
+build/*
+dist
+docs/_build
+docs/config/scratchpad.rst
+.tox/*
