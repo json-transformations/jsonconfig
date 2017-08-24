@@ -1,6 +1,8 @@
 Welcome to JSON Config
 ======================
 
+|Build Status|
+
 *Configuration doesn't get any easier than this ...*
 
 .. code::
@@ -173,3 +175,7 @@ References
 
 .. _3rd-party Keyring encryption backends:
     http://github.com/jaraco/keyrings.alt
+
+.. |Build Status| image:: https://travis-ci.org/json-transformations/jsonconfig.svg?branch=master
+   :target: https://travis-ci.org/json-transformations/jsonconfig
+
