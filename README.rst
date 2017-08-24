@@ -1,7 +1,7 @@
 Welcome to JSON Config
 ======================
 
-|Build Status|
+|Build Status||Version Status|
 
 *Configuration doesn't get any easier than this ...*
 
@@ -178,4 +178,6 @@ References
 
 .. |Build Status| image:: https://travis-ci.org/json-transformations/jsonconfig.svg?branch=master
    :target: https://travis-ci.org/json-transformations/jsonconfig
-
+.. |https://badge.fury.io/py/jsonconfig-tool.svg
+   |Version Status| image:: https://badge.fury.io/py/jsonconfig-tool.svg
+   :target: https://pypi.python.org/pypi/jsonconfig-tool
