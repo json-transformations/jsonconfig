@@ -22,7 +22,7 @@ def test_from_json_file_decode_error(tmpdir):
 
 def test_to_json_file_error():
     with pytest.raises(FileError):
-        to_json_file(None, '#$@&%*!')
+        to_json_file(None, '/no_permissions.json')
 
 
 def test_from_json_decode_error():
@@ -31,7 +31,7 @@ def test_from_json_decode_error():
 
 
 def test_from_json_file_recover_from_environment_error():
-    assert from_json_file(b'#$@&%*!') == {}
+    assert from_json_file('/no_permissions.json') == {}
 
 
 def test_from_json():
