@@ -1,7 +1,7 @@
 Welcome to JSON Config
 ======================
 
-|Build Status| |Version Status| |Dependency Updates| |Documentation Status| |Coverage Status|
+|Build Status| |Dependency Updates| |Documentation Status| |Coverage Status|
 
 *Configuration doesn't get any easier than this ...*
 
