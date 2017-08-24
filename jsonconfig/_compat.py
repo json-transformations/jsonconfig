@@ -17,12 +17,14 @@ OPEN_PARAMS = ('file', 'mode', 'buffering', 'encoding', 'errors', 'newline')
 OPEN_PARAMETERS = get_parameters(open) if PY35_PLUS else OPEN_PARAMS
 
 
-def get_user():
+def get_user(is_test=False):
     """Compatibility with tox & Windows.
 
     Work around for pwd import Error when running tox in Windows.
     """
     try:
+        if is_test:
+            raise ImportError
         return getpass.getuser()
     except ImportError:
         return os.getenv('username', '')
