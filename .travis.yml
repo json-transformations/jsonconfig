@@ -5,10 +5,10 @@ python:
   - "3.4"
   - "3.5"
   - "3.6"
-
 env:
   global:
     - PYTHONPATH="/home/travis/build/json-transformations/jsonconfig"
-
 install: "pip install click keyring python-box pytest" 
 script: py.test
+after_success:
+    - pip install coveralls --use-mirrors ; coveralls
