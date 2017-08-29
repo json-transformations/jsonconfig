@@ -19,7 +19,6 @@ Signature = namedtuple('Signature', ['name', 'args'])
 
 
 def get_funct_parameters(funct):
-    # import pdb; pdb.set_trace()
     if inspect.isfunction(funct) or inspect.isbuiltin(funct):
         return Signature(funct.__name__, set(get_parameters(funct)))
     return Signature(funct.name, set(funct.args))
@@ -48,5 +47,4 @@ def group_kwargs_by_funct(kwargs, funct_args, bad_kwds=EMPTY, safe_kwds=EMPTY):
         raise TypeError(err_mesg.format(unexpected_kwds))
     kwds = [{k: v for k, v in kwargs.items() if k in (i.args & safe_kwds)}
             for i in funct_params]
-    print(kwds)
     return dict(zip((f.name for f in funct_params), kwds))
