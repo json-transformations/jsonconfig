@@ -141,6 +141,13 @@ Data Conversion
   a Mapping then use ``PLAIN`` to free yourself of all of the trappings.
   With ``PLAIN`` it's just you and your buddy Python; we get out of the way.
 
+============================================
+JSON Config Frees You to Do What You Do Best
+============================================
+
+Spend more time solving real-world problems, less time coding, testing &
+troubleshooting configuration issues.
+
 References
 ----------
 
