@@ -47,7 +47,6 @@ DefaultBox
     A shortcut for `Config('myapp', default_box=True)`.  Acts like a
     recursive default dict.  It automatically creates missing keys.    
 
-
 .. code::
 
         with DefaultBox('myapp') as cfg:
