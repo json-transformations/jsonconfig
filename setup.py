@@ -4,7 +4,7 @@ from codecs import open
 from setuptools import setup
 
 requirements = ['click==6.7', 'python-box==3.1.1', 'keyring==10.4.0']
-test_requirements = ['flake8', 'pytest-cov', 'sphinx']
+test_requirements = ['flake8', 'pytest-cov', 'sphinx', 'tox']
 
 _version_re = re.compile(r'__version__\s+=\s+(.*)')
 
