@@ -1,7 +1,7 @@
 Welcome to JSON Config
 ======================
 
-|Build Status| |Dependency Updates| |Documentation Status| |Coverage Status|
+|Build Status| |Dependency Updates| |Coverage Status|
 
 *Configuration doesn't get any easier than this ...*
 
@@ -189,7 +189,5 @@ References
    :target: https://coveralls.io/github/json-transformations/jsonconfig?branch=master
 .. |Version Status| image:: https://badge.fury.io/py/jsonconfig-tool.svg
    :target: https://pypi.python.org/pypi/jsonconfig-tool
-.. |Documentation Status| image:: https://readthedocs.org/projects/jsonconfig/badge/?version=latest
-   :target: http://jsonconfig.readthedocs.io/en/latest/?badge=latest
 .. |Dependency Updates| image:: https://pyup.io/repos/github/json-transformations/jsonconfig/shield.svg
    :target: https://pyup.io/repos/github/json-transformations/jsonconfig/
