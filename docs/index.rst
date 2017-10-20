@@ -10,6 +10,8 @@ Welcome to JSON Config's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   jsoncut
+   jsonconfig
    config/intro
    config/examples
    config/basics
