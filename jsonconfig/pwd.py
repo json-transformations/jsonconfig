@@ -72,6 +72,6 @@ class KeyringAttrDict(dict):
         """Get a list of currently available keyrings."""
         return cls.keyring.backend.get_all_keyring()
 
-    __getitem__ = __getattr__
+    get = __getitem__ = __getattr__
     __setitem__ = __setattr__
     __delitem__ = __delattr__
