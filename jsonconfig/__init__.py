@@ -19,4 +19,4 @@ from .errors import (
     KeyringNameError
 )
 
-__version__ = 1.0
+__version__ = 1.01
