@@ -1,5 +1,3 @@
-from collections import Mapping
-
 from .errors import SetPasswordError, DeletePasswordError, KeyringNameError
 
 

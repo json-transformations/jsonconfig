@@ -35,7 +35,6 @@ def test_get_filename():
 def test_get_explicit_filename(tmpdir):
     f = 'config.json'
     d = tmpdir.mkdir('test')
-    p = d.join(f)
     result = get_filename(str(d.join(f)), None)
     path, filename = os.path.split(result)
     assert path == str(d)

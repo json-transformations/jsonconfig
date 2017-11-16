@@ -1,5 +1,4 @@
 import os
-from stat import S_IWUSR
 
 import pytest
 
