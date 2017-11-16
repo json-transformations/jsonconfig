@@ -1,9 +1,10 @@
 .cache
+.coveralls.yml
+.tox/*
 *.egg-info
 *.pyc
 build/*
 dist
 docs/_build
 docs/config/scratchpad.rst
-.coveralls.yml
-.tox/*
+report.txt
