@@ -45,6 +45,7 @@ def test_passwords():
         assert cfg.pwd['some user'] == 'supercalifragilisticexpialidocious'
         del cfg.pwd['some user']
         assert cfg.pwd['some user'] is None
+        assert cfg.pwd.get('some user', 'some value') == 'some value'
 
 
 def test_password_attrs():

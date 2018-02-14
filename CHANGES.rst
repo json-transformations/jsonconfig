@@ -1,4 +1,4 @@
-1.0
+1.2
 ---
 
-Initial production release.
+* pwd.get now accepts an optional default value.

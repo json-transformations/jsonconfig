@@ -5,6 +5,10 @@ from box import Box, BoxError
 from click.termui import hidden_prompt_func as getpass
 
 from .core import Config
+from .shortcuts import (
+    PLAIN, BOXED, FROZEN, NESTED,
+    BoxConfig, FrozenBox, DefaultBox, Keyring, Environ
+)
 from .appdir import get_filename
 from .env import EnvironAttrDict
 from .jsonutils import to_json_file, from_json_file, to_json, from_json
@@ -19,4 +23,4 @@ from .errors import (
     KeyringNameError
 )
 
-__version__ = 1.1
+__version__ = 1.2

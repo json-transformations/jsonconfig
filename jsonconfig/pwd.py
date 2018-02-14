@@ -31,6 +31,9 @@ class KeyringAttrDict(dict):
     def __repr__(self):
         return repr(KeyringAttrDict.keyring.get_keyring())
 
+    def get(self, key, default=None):
+        return self.__getattr__(key) or default
+
     def pop(self, key):
         value = self[key]
         del self[key]
@@ -70,6 +73,6 @@ class KeyringAttrDict(dict):
         """Get a list of currently available keyrings."""
         return cls.keyring.backend.get_all_keyring()
 
-    get = __getitem__ = __getattr__
+    __getitem__ = __getattr__
     __setitem__ = __setattr__
     __delitem__ = __delattr__
