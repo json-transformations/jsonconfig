@@ -3,7 +3,7 @@ import ast
 from codecs import open
 from setuptools import setup
 
-requirements = ['click==6.7', 'python-box==3.1.1', 'keyring==10.5.0']
+requirements = ['click==6.7', 'python-box==3.1.1', 'keyring==11.0.0']
 test_requirements = ['flake8==3.5.0', 'pytest-cov==2.5.1', 'sphinx',
                      'tox==2.9.1']
 
