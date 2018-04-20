@@ -5,4 +5,4 @@ pytest-cov
 flake8
 tox
 Sphinx
-sphinx-rtd-theme
+sphinx-rtd-theme==0.3.0
