@@ -37,7 +37,7 @@ setup(
         'click>=6.7',
         'python-box>=3.1.1',
         'keyring>=12.0.1',
-        'pywin32-ctypes>=0.1.2; platform_system="Windows"',
+        'pywin32-ctypes>=0.1.2; platform_system=="Windows"',
         'dbus-python>=1.2.4; platform_system=="Linux"',
     ],
 )
