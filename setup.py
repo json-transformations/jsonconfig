@@ -34,9 +34,9 @@ setup(
          'Programming Language :: Python :: 3',
     ],
     install_requires=[
-        'click==6.7',
-        'python-box==3.1.1',
-        'keyring==12.0.1',
-        'dbus-python==1.2.4; platform_system=="Linux"',
+        'click>=6.7',
+        'python-box>=3.1.1',
+        'keyring>=12.0.1',
+        'dbus-python>=1.2.4; platform_system=="Linux"',
     ],
 )
