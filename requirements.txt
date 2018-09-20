@@ -1,6 +1,6 @@
 click==6.7
 keyring==13.2.1
-python-box==3.2.0
+python-box==3.2.1
 pytest-cov
 flake8
 tox==3.1.2
