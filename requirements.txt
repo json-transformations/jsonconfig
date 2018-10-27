@@ -1,5 +1,5 @@
 click==6.7
-keyring==13.2.1
+keyring==15.2.0
 python-box==3.2.0
 pytest-cov
 flake8
