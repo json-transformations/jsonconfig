@@ -1,7 +1,7 @@
 click==6.7
 keyring==13.2.1
 python-box==3.2.0
-pytest-cov
+pytest-cov==2.6.1
 flake8
 tox==3.1.2
 Sphinx==1.7.6
