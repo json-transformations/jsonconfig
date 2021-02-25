@@ -26,4 +26,4 @@ def from_json(data, **from_json_kwargs):
         raise JsonDecodeError(e)
 
 
-to_json = box._to_json
+to_json = box.box._to_json
