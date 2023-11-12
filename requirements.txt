@@ -1,5 +1,5 @@
 click==7.0
-keyring==17.1.1
+keyring==24.3.0
 python-box==3.2.3
 pytest-cov==2.6.1
 flake8==3.6.0
