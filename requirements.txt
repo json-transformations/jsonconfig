@@ -3,6 +3,6 @@ keyring==17.1.1
 python-box==3.2.3
 pytest-cov==2.6.1
 flake8==3.6.0
-tox==3.7.0
+tox==4.22.0
 Sphinx==1.8.3
 sphinx-rtd-theme==0.4.2
